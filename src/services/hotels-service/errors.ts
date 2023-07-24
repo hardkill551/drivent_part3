@@ -13,3 +13,10 @@ export function NoPay(): ApplicationError{
         message: "Pay the ticket"
     }
 }
+
+export function notFoundError(): ApplicationError {
+    return {
+      name: 'NotFoundError',
+      message: 'No result for this search!',
+    };
+  }
