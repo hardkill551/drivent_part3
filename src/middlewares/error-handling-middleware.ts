@@ -13,7 +13,16 @@ export function handleApplicationErrors(
       message: err.message,
     });
   }
-
+  if (err.name === 'Invalid ID') {
+    return res.status(httpStatus.BAD_REQUEST).send({
+      message: err.message,
+    });
+  }
+  if (err.name === 'No Paid') {
+    return res.status(httpStatus.PAYMENT_REQUIRED).send({
+      message: err.message,
+    });
+  }
   if (err.name === 'ConflictError' || err.name === 'DuplicatedEmailError') {
     return res.status(httpStatus.CONFLICT).send({
       message: err.message,
