@@ -12,8 +12,8 @@ async function getHotelsById(id:string, userId:number) {
     }
     
     const hotels = await hotelsRepository.getHotelsById(Number(id))
-    if(!hotels) throw notFoundError()
     await validTicket(userId)
+    if(!hotels) throw notFoundError()
     return hotels
 }
 const hotelsService = {
@@ -26,7 +26,7 @@ async function validTicket(userId:number){
     const hotels = await hotelsRepository.getHotels()
     const ticket = await getTicketByUserId(userId)
     if(hotels.length === 0) throw notFoundError()
-    else if(ticket.status === "RESERVED" || ticket.TicketType.isRemote === true || ticket.TicketType.includesHotel === false){
+    if(ticket.status === "RESERVED" || ticket.TicketType.isRemote === true || ticket.TicketType.includesHotel === false){
         throw NoPay()
     }
     return hotels

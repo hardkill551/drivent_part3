@@ -10,9 +10,12 @@ import { createHotel } from "../factories/hotels-factory";
 
 beforeAll(async () => {
     await init();
-    await cleanDb();
 });
 
+beforeEach(async () => {
+    await cleanDb();
+  });
+  
 const server = supertest(app);
 
 describe("GET /hotels", () => {
